@@ -35,8 +35,8 @@ A simple clone of the popular Flappy Bird game created using Python and Pygame. 
     python main.py
     ```
 2. Controls
-- In the menu, using LEFT and RIGHT to cycle between birds, SPACE to confirm.
-- In game, use SPACE to move the bird.
+- In the menu, using `LEFT` and `RIGHT` to cycle between birds, `SPACE` to confirm.
+- In game, use `SPACE` to move the bird.
 3. Navigate the bird through the pipes and try to score as high as possible!
 
 ## Credits
