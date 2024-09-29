@@ -1,4 +1,4 @@
-# Flappy Bird Clone
+# Floaty Bird
 
 A simple clone of the popular Flappy Bird game created using Python and Pygame. The objective of the game is to navigate a bird through a series of pipes without crashing.
 
