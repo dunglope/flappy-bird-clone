@@ -24,7 +24,7 @@ bird_index = 0
 score = 0
 high_score = 0
 skin_selected = 0  # Tracks the selected bird skin
-MIN_GAP_SIZE = 200  # Minimum space between the upper and lower pipes
+MIN_GAP_SIZE = 100  # Minimum space between the upper and lower pipes
 game_state = "menu"  # Tracks if the game is in the menu or game
 
 # Load high score from a file at the start of your game
@@ -36,7 +36,7 @@ except FileNotFoundError:
 
 # Setup screen, clock, and fonts
 screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
-pygame.display.set_caption("Flappy Bird")
+pygame.display.set_caption("Floaty Bird")
 clock = pygame.time.Clock()
 
 background = pygame.image.load("imgs/background.png")
@@ -88,14 +88,6 @@ pipe2_u_y = randint(500, 800)
 pipe1_distance = randint(200, 300) + 640
 pipe2_distance = randint(200, 300) + 640
 
-# Randomize the pipe positions with a guaranteed gap
-def reset_pipes():
-    global pipe1_u_y, pipe1_d_y, pipe2_u_y, pipe2_d_y
-    pipe1_u_y = randint(100, 600)  # Upper pipe height
-    pipe1_d_y = pipe1_u_y + MIN_GAP_SIZE  # Lower pipe height, ensuring a minimum gap
-    pipe2_u_y = randint(100, 600)  # Upper pipe height
-    pipe2_d_y = pipe2_u_y + MIN_GAP_SIZE  # Lower pipe height, ensuring a minimum gap
-
 # Load and scale pipe images
 pipe1_u = pygame.image.load("imgs/pipe.png").convert()
 Scaled_pipe1_u = pygame.transform.scale(pipe1_u, (104, 640))
@@ -119,6 +111,18 @@ pipe2_d_rect = Rotated_pipe2_d.get_rect(topleft=(1250, pipe2_d_y - pipe2_distanc
 game_over = pygame.image.load("imgs/gameover.png")
 Scaled_gameover = pygame.transform.scale(game_over, (384, 84))
 gameover_rect = Scaled_gameover.get_rect(topleft=(96, 450))
+
+# Randomize the pipe positions with a guaranteed gap
+def reset_pipes():
+    global pipe1_u_y, pipe1_d_y, pipe2_u_y, pipe2_d_y, pipe1_distance, pipe2_distance
+    pipe1_u_y = randint(100, 600)  # Upper pipe height for pipe 1
+    pipe1_d_y = pipe1_u_y - MIN_GAP_SIZE/2  # Lower pipe height for pipe 1, ensuring a minimum gap
+    pipe2_u_y = randint(100, 600)  # Upper pipe height for pipe 2
+    pipe2_d_y = pipe2_u_y - MIN_GAP_SIZE/2  # Lower pipe height for pipe 2, ensuring a minimum gap
+
+    # Re-randomize pipe distances
+    pipe1_distance = randint(200, 300) + 640
+    pipe2_distance = randint(200, 300) + 640
 
 # Bird animation function
 def bird_animation():
@@ -152,7 +156,8 @@ def reset_game():
     gravity = 0
     # Reset bird position
     bird_rect.topleft = (45, 300)
-    # Reset pipes position
+    # Reset pipes position and re-randomize the gap
+    reset_pipes()
     pipe1_u_rect.topleft = (700, pipe1_u_y)
     pipe2_u_rect.topleft = (1250, pipe2_u_y)
     pipe1_d_rect.topleft = (700, pipe1_d_y - pipe1_distance)
@@ -164,12 +169,13 @@ def reset_game():
 # Collision detection function
 def check_collision():
     global if_die, if1_die, gravity
-    if (bird_rect.colliderect(pipe1_u_rect) or bird_rect.colliderect(pipe2_u_rect) or
-        bird_rect.colliderect(pipe1_d_rect) or bird_rect.colliderect(pipe2_d_rect) or 
-        bird_rect.y <= 0 or bird_rect.y >= SCREEN_Y - 100):  # 100 as a buffer for ground
-        if_die = 1
-        if1_die = 1
-        gravity = 0  # Reset gravity when the bird dies
+    if not immortal_mode:  # Only check for collisions if not in immortal mode
+        if (bird_rect.colliderect(pipe1_u_rect) or bird_rect.colliderect(pipe2_u_rect) or
+            bird_rect.colliderect(pipe1_d_rect) or bird_rect.colliderect(pipe2_d_rect) or 
+            bird_rect.y <= 0 or bird_rect.y >= SCREEN_Y - 100):  # 100 as a buffer for ground
+            if_die = 1
+            if1_die = 1
+            gravity = 0  # Reset gravity when the bird dies
         
 # Score update function
 def update_score():
@@ -187,12 +193,32 @@ def update_score():
         with open("high_score.txt", "w") as f:
             f.write(str(high_score))
 
+######################### FOR DEBUGING ONLY #########################
+# Variable to track immortality
+immortal_mode = False
+
+# Cheat code function
+def toggle_immortal():
+    global immortal_mode
+    immortal_mode = not immortal_mode  # Toggle the immortality state
+
+# Check for cheat code input
+def check_cheat_code(event):
+    if event.type == pygame.KEYDOWN:
+        # Example: Press 'I' to toggle immortality
+        if event.key == pygame.K_i:
+            toggle_immortal()
+#########################################################################
+
 # Main game loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+            
+        # Check for cheat code input
+        check_cheat_code(event)
 
         # Menu controls
         if game_state == "menu":
@@ -210,7 +236,9 @@ while True:
         elif game_state == "game":
             if event.type == pygame.KEYDOWN:
                 if event.key in [pygame.K_SPACE, pygame.K_w, pygame.K_UP] and if_die == 0:
-                    gravity = -12
+                    gravity = -7.734
+                elif if1_die == 1 and event.key == pygame.K_SPACE:  # Press space after death
+                    reset_game()  # Reset the game
 
     # Clear the screen and fill with background color
     screen.fill((0, 0, 0))  # Optional, in case the background doesn't load
@@ -219,12 +247,12 @@ while True:
     elif game_state == "game":
         # Game logic
         if if_die == 0:
-            gravity += 1
-            bird_rect.y += gravity
+            gravity += 0.09
+            bird_rect.y += gravity/2
 
         # Check for collisions
         check_collision()
-        
+
         # Update score
         update_score()
 
@@ -273,9 +301,14 @@ while True:
 
         bird_animation()
 
+        # When the player dies, display "Game Over" and check for Space press to reset
         if if1_die == 1:
             screen.blit(Scaled_gameover, gameover_rect)
             screen.blit(high_score_t, (SCREEN_X // 4, 300))
+
+            # Check if the player presses space to restart
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                reset_game()
 
     # Update the display
     pygame.display.update()
