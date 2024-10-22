@@ -10,6 +10,7 @@ A simple clone of the popular Flappy Bird game created using Python and Pygame. 
 - High score tracking
 - Increasing difficulty
 - Simple and intuitive controls
+- Cheatcode implemented
 
 ## Requirements
 
@@ -39,6 +40,7 @@ A simple clone of the popular Flappy Bird game created using Python and Pygame. 
 2. Controls
 - In the menu, using `LEFT` and `RIGHT` to cycle between birds, `SPACE` to confirm.
 - In game, use `SPACE` to move the bird.
+- Press `I` to toggle god mode.
 3. Navigate the bird through the pipes and try to score as high as possible!
 
 ## Credits
