@@ -1,6 +1,9 @@
 # Floaty Bird
 
-![](https://github.com/dunglope/flappy-bird-clone/blob/v0.1/g.gif)
+<div align="center">
+    <img src="[https://github.com/dunglope/flappy-bird-clone/blob/v0.1/g.gif]" alt="Floaty Bird" width="500"/>
+</div>
+
 A simple clone of the popular Flappy Bird game created using Python and Pygame. The objective of the game is to navigate a bird through a series of pipes without crashing.
 
 ## Features
