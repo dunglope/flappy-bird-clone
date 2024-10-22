@@ -7,7 +7,7 @@ pygame.init()
 
 # Screen dimensions
 SCREEN_X = 576
-SCREEN_Y = 1024
+SCREEN_Y = 850
 
 # Initialize variables
 pipe1_pass = 0
@@ -24,7 +24,7 @@ bird_index = 0
 score = 0
 high_score = 0
 skin_selected = 0  # Tracks the selected bird skin
-MIN_GAP_SIZE = 100  # Minimum space between the upper and lower pipes
+MIN_GAP_SIZE = 68  # Minimum space between the upper and lower pipes
 game_state = "menu"  # Tracks if the game is in the menu or game
 
 # Load high score from a file at the start of your game
@@ -90,20 +90,20 @@ pipe2_distance = randint(200, 300) + 640
 
 # Load and scale pipe images
 pipe1_u = pygame.image.load("imgs/pipe.png").convert()
-Scaled_pipe1_u = pygame.transform.scale(pipe1_u, (104, 640))
+Scaled_pipe1_u = pygame.transform.scale(pipe1_u, (104, 800))
 pipe1_u_rect = Scaled_pipe1_u.get_rect(topleft=(700, pipe1_u_y))
 
 pipe2_u = pygame.image.load("imgs/pipe.png").convert()
-Scaled_pipe2_u = pygame.transform.scale(pipe2_u, (104, 640))
+Scaled_pipe2_u = pygame.transform.scale(pipe2_u, (104, 800))
 pipe2_u_rect = Scaled_pipe2_u.get_rect(topleft=(1250, pipe2_u_y))
 
 pipe1_d = pygame.image.load("imgs/pipe.png").convert()
-Scaled_pipe1_d = pygame.transform.scale(pipe1_d, (104, 640))
+Scaled_pipe1_d = pygame.transform.scale(pipe1_d, (104, 604))
 Rotated_pipe1_d = pygame.transform.rotate(Scaled_pipe1_d, 180)
 pipe1_d_rect = Rotated_pipe1_d.get_rect(topleft=(700, pipe1_d_y - pipe1_distance))
 
 pipe2_d = pygame.image.load("imgs/pipe.png").convert()
-Scaled_pipe2_d = pygame.transform.scale(pipe2_d, (104, 640))
+Scaled_pipe2_d = pygame.transform.scale(pipe2_d, (104, 604))
 Rotated_pipe2_d = pygame.transform.rotate(Scaled_pipe2_d, 180)
 pipe2_d_rect = Rotated_pipe2_d.get_rect(topleft=(1250, pipe2_d_y - pipe2_distance))
 
@@ -121,8 +121,8 @@ def reset_pipes():
     pipe2_d_y = pipe2_u_y - MIN_GAP_SIZE/2  # Lower pipe height for pipe 2, ensuring a minimum gap
 
     # Re-randomize pipe distances
-    pipe1_distance = randint(200, 300) + 640
-    pipe2_distance = randint(200, 300) + 640
+    pipe1_distance = randint(200, 300) + 610
+    pipe2_distance = randint(200, 300) + 610
 
 # Bird animation function
 def bird_animation():
