@@ -21,26 +21,26 @@ A simple clone of the popular Flappy Bird game created using Python and Pygame. 
 
 1. Clone the repository:
 
-   ```bash
+   
    git clone https://github.com/dunglope/flappy-bird-clone.git
    cd flappy-bird-clone
-   ```
+   
 2. Install dependencies
 
-    ```bash
+    
     pip install requirement.txt
-    ```
+    
 ## How to play
 
 1. Run the game
 
-    ```bash
+    
     python main.py
-    ```
+    
 2. Controls
-- In the menu, using `LEFT` and `RIGHT` to cycle between birds, `SPACE` to confirm.
-- In game, use `SPACE` to move the bird.
-- Press `I` to toggle god mode.
+- In the menu, using LEFT and RIGHT to cycle between birds, SPACE to confirm.
+- In game, use SPACE to move the bird.
+- Press I to toggle god mode.
 3. Navigate the bird through the pipes and try to score as high as possible!
 
 ## Credits
@@ -50,3 +50,5 @@ A simple clone of the popular Flappy Bird game created using Python and Pygame. 
 
 ## License
 This project is licensed under the MIT License.
+
+siu
