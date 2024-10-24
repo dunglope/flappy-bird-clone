@@ -27,25 +27,27 @@ A simple clone of the popular Flappy Bird game created using Python and Pygame. 
    
 2. Install dependencies
 
-    
+    ```
     pip install requirement.txt
+    ```
     
 ## How to play
 
 1. Run the game
 
-    
+    ```
     python main.py
+    ```
     
 2. Controls
-- In the menu, using LEFT and RIGHT to cycle between birds, SPACE to confirm.
-- In game, use SPACE to move the bird.
-- Press I to toggle god mode.
+- In the menu, using `LEFT` and `RIGHT` to cycle between birds, `SPACE` to confirm.
+- In game, use `SPACE` to move the bird.
+- Press `I` to toggle god mode.
 3. Navigate the bird through the pipes and try to score as high as possible!
 
 ## Credits
 
-- Original concept by Dong Nguyen.
+- Original concept by Nguyen Ha Dong.
 - [Original Repository](https://github.com/ThatRandomError/Pygame-Flappy-Bird).
 
 ## License
