@@ -21,10 +21,10 @@ A simple clone of the popular Flappy Bird game created using Python and Pygame. 
 
 1. Clone the repository:
 
-   
+   ```
    git clone https://github.com/dunglope/flappy-bird-clone.git
    cd flappy-bird-clone
-   
+   ```
 2. Install dependencies
 
     ```
